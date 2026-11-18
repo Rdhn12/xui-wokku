@@ -4,7 +4,8 @@
 
 sleep 3
 
-if [ -z "$TUNNEL_TOKEN" ]; then
+if [ -z "$TUNNEL_TOKEN" ]
+; then
     echo "ERROR: Variabel TUNNEL_TOKEN belum diisi!"
     exit 1
 fi
