@@ -1,11 +1,12 @@
-FROM ghcr.io/mhsanaei/3x-ui:latest
+FROM debian:bookworm-slim
 
-RUN wget -qO /usr/local/bin/cloudflared https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 \
-    && chmod +x /usr/local/bin/cloudflared
+RUN apt-get update && apt-get install -y curl wget ca-certificates procps && rm -rf /var/lib/apt/lists/*
 
-COPY start.sh /start.sh
-RUN chmod +x /start.sh
+# Install cloudflared, ini yang kemarin ketinggalan makanya ga konek
+RUN curl -L https://github.[STRIPPED 75 bytes] -o /usr/local/bin/cloudflared && chmod +x /usr/local/bin/cloudflared
 
-EXPOSE 2053
+WORKDIR /app
+COPY start.sh /app/start.sh
+RUN chmod +x /app/start.sh
 
-ENTRYPOINT ["/start.sh"]
+CMD ["/app/start.sh"]
